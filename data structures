@@ -1,0 +1,131 @@
+#include<stdio.h>
+struct queue
+{
+        int data;
+        struct queue *next;
+};
+typedef struct queue node;
+node*front=NULL;
+node *rear=NULL;
+void enqueue(int x)
+{
+        node*new;
+        new=(node*)malloc(sizeof(node));
+        new->data=x;
+        new->next=NULL;
+        if(front==NULL)
+        {
+                front=rear=new;
+        }
+        else
+        {
+                rear->next=new;
+                rear=new;
+        }
+}
+int dequeue()
+{
+        int x;
+        node*temp;
+        if(front==NULL)
+        {
+                return -1;
+        }
+        else
+        {
+                x=front->data;
+                if(front==rear)
+                {
+                        front=rear=NULL;
+                }
+                else
+                {
+                        temp=front;
+                        front=front->next;
+                        free(temp);
+                }
+                return x;
+        }
+}
+void display()
+{
+        node*temp;
+        if(front==NULL)
+        {
+                printf("no elements in queue");
+        }
+        else
+        {
+        temp=front;
+                while(temp!=NULL)
+                {
+
+                printf("%d\t",temp->data);
+                temp=temp->next;
+                }
+        }
+}
+int main()
+{
+        int x,ch;
+        while(1)
+        {
+        printf("\n1.enqueue\n2.dequeue\n3.display\n4.exit\n");
+        printf("enter choice");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+                case 1: printf("enter elements to insert");
+                        scanf("%d",&x);
+                        enqueue(x);
+                        break;
+                case 2: x=dequeue();
+                        if(x==-1)
+                        {
+                                printf("queue underflow");
+                        }
+                        else
+                        {
+                                printf("element %d is deleted",x);
+                        }
+                        break;
+                case 3: printf("elements in the queue are:");
+                        display();
+                         break;
+                case 4: exit(0);
+                        break;
+        }
+        }
+}
+OUTPUT:
+1.enqueue
+2.dequeue
+3.display
+4.exit
+enter choice1
+enter elements to insert2
+
+1.enqueue
+2.dequeue
+3.display
+4.exit
+enter choice1
+enter elements to insert3
+
+1.enqueue
+2.dequeue
+3.display
+4.exit
+enter choice2
+element 2 is deleted
+1.enqueue
+2.dequeue
+3.display
+4.exit
+enter choice3
+elements in the queue are:3
+1.enqueue
+2.dequeue
+3.display
+4.exit
+enter choice4
